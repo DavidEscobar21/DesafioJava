@@ -6,10 +6,12 @@ import com.google.gson.GsonBuilder;
 
 import java.io.FileWriter;
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
 
 public class GeneraArchivo {
 
-    public void generarArchivo(TasaMoneda data) throws IOException {
+    public void generarArchivo(List<TasaMoneda> data) throws IOException {
 
         Gson gson = new GsonBuilder()
                 .setFieldNamingPolicy(FieldNamingPolicy.UPPER_CAMEL_CASE)

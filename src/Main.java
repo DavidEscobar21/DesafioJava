@@ -1,7 +1,12 @@
 import com.aluracursos.modelos.ConsultaTasa;
+import com.aluracursos.modelos.GeneraArchivo;
+import com.aluracursos.modelos.TasaMoneda;
 import com.aluracursos.modelos.TasaMonedaOmdb;
 
+import java.io.FileWriter;
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Scanner;
 
 public class Main {
@@ -9,7 +14,9 @@ public class Main {
 
         Scanner sc = new Scanner(System.in);
         ConsultaTasa consultaTasa = new ConsultaTasa();
-        TasaMonedaOmdb tasaMonedaOmdb;
+        TasaMonedaOmdb tasaMonedaOmdb = null;
+        List<TasaMoneda> cambioMoneda = new ArrayList<>();
+        TasaMoneda tasaMoneda;
         int opcion;
         double valor;
         double montoCambio;
@@ -71,7 +78,18 @@ public class Main {
                     System.out.println("El valor "+valor+" [COP] Corresponde al valor final de =>>> "+montoCambio+" [USD]");
                     break;
             }
+
+            if (opcion > 0 && opcion < 7){
+            tasaMoneda = new TasaMoneda(tasaMonedaOmdb);
+            cambioMoneda.add(tasaMoneda);
+            }
+
         } while (opcion != 7);
+
+        if(cambioMoneda.size()>0) {
+            GeneraArchivo generaArchivo = new GeneraArchivo();
+            generaArchivo.generarArchivo(cambioMoneda);
+        }
     }
 
     public static int leerEntero(Scanner sc,String mensaje, String mensajeError) {
